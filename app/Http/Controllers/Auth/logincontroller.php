@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,9 +17,12 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            $customer = Customer::where('email', $request->input('email'))->first();
-            Auth::login($customer);
-            return redirect('/home');
+            // $customer = Customer::where('email', $request->input('email'))->first();
+            // Auth::login($customer);
+            // return redirect('/home');
+            $request->session()->regenerate();
+            return redirect()->intended('/home');
+            
         } else {
             if (Customer::where('email', $request->input('email'))->exists()) {
                 return back()->withErrors(['Invalid password']);
