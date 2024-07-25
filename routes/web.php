@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\logincontroller;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ForgotPasswordContreoller;
 
 route::get('/', function () {
     return view('welcome');
@@ -38,3 +39,9 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('status', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+// forgetpassword
+Route::get('forgot-password',[ForgotPasswordContreoller::class,'showForgotPasswordForm'])->name('forgot.password.get');
+Route::post('forgot-password',[ForgotPasswordContreoller::class,'submitForgotPasswordForm'])->name('forgot.password.post');
+Route::get('reset-password/{token}',[ForgotPasswordContreoller::class,'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password',[ForgotPasswordContreoller::class,'submitResetPasswordForm'])->name('reset.password.post');

@@ -48,7 +48,7 @@
         <label for="">Password</label>
         <input type="password" name="password" id="">
         <button>Submit</button>
-        <a href="{{ url('register') }}">Forget Password</a>
+        <a href="{{ route('forgot.password.get') }}">Forget Password</a>
     </form>
 </body>
 </html>
